@@ -90,7 +90,7 @@ function Home() {
         <h2 className="text-2xl">See What Others Are Saying</h2>
         <div className="my-10 flex justify-center items-center flex-col">
             {/* user image */}
-            <img width={'200px'} height={'200px'} style={{borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg  " alt="user" />
+            <img width={'200px'} height={'200px'} style={{borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="user" />
             {/* feedback */}
             <p className='mt-5'>Lucas Alexander</p>
             <p className='text-justify mt-4'><span className='font-bold me-2'>“Amazing Collection and Easy Navigation!”</span> “I love how simple and smooth the shopping experience is. The categories, reviews, and recommendations helped me find exactly what I was looking for. I’ll definitely be back for more books! My order arrived earlier than expected and the packaging was perfect. The books were in excellent condition, and I even got a discount on my purchase. Highly recommended!”</p>
