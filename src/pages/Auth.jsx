@@ -3,6 +3,8 @@ import { FaEye, FaEyeSlash, FaUser } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
  import { ToastContainer, toast } from 'react-toastify';
 import { loginAPI, registerAPI } from '../services/allAPI';
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from 'jwt-decode'
 
 function Auth({insideRegister}) {
 
@@ -78,6 +80,13 @@ function Auth({insideRegister}) {
     }
   }
 
+  const handleGoogleLogin = async (credentialResponse)=>{
+    console.log("Inside handleGoogleLogin");
+    console.log(credentialResponse);
+    const decode = jwtDecode(credentialResponse.credential)
+    console.log(decode);
+    
+  }
 
 
   return (
@@ -99,7 +108,7 @@ function Auth({insideRegister}) {
                 <input value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}  type="text" placeholder='Email ID' className='bg-white text-black placeholder-gray-400 w-full p-2 rounded mb-5' />
                 {/* password */}
                 <div className='flex items-center'>
-                  <input value={userDetails.password} onChange={(e)=>setUserDetails({...userDetails,password:e.target.value})}  type={viewPassword?"text":"password"} placeholder='Password' className='bg-white text-black placeholder-gray-400 w-full p-2 rounded mb-5' />
+                  <input value={userDetails.password} onChange={(e)=>setUserDetails({...userDetails,password:e.target.value})}  type={viewPassword?"text":"password"} placeholder='Password' className='bg-white text-black placeholder-gray-400 w-full p-2 rounded mb-2' />
                   {
                     viewPassword ?
                     <FaEyeSlash onClick={()=>setViewPassword(!viewPassword)} className='text-gray-400 cursor-pointer' style={{marginLeft:'-30px',marginTop:'-20px'}} />
@@ -124,6 +133,22 @@ function Auth({insideRegister}) {
                   }
                 </div>
                 {/* google authentication */}
+                <div className="text-center my-5">
+                  { !insideRegister && <p>------------------or-----------------</p>}
+                  {
+                    !insideRegister &&
+                    <div className='my-5 flex justify-center items-center w-full'>
+                      <GoogleLogin 
+                        onSuccess={credentialResponse => {
+                          handleGoogleLogin(credentialResponse)
+                        }}
+                        onError={() => {
+                          console.log('Login Failed');
+                        }}
+                      />
+                    </div>
+                  }
+                </div>
                 <div className="my-5 text-center">
                   {
                     insideRegister ?

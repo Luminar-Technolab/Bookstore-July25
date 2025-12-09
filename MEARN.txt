@@ -877,7 +877,7 @@
             JSON Web Token (JWT)
         -------------------------------
     1. JSON Web Token (JWT) is a compact, secure, and URL-safe way to represent claims between a client and a server.
-    2. JWTs are widely used for authentication and authorization in modern web applications, especially in REST APIs.
+    2. JWTs are widely used for 'authentication and authorization' in modern web applications, especially in REST APIs.
     3. Why JWT?
         - JWT allows the server to verify a user's identity without storing their session on the server.
         - This makes it perfect for:
