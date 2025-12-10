@@ -6,10 +6,24 @@ import Edit from '../components/Edit'
 import SellBook from '../components/SellBook'
 import BookStatus from '../components/BookStatus'
 import Purchase from '../components/Purchase'
+import { useEffect } from 'react'
 
 function Profile() {
 
   const [tab,setTab] = useState(1)
+  const [dp,setDp] = useState("")
+  const [username,setUsername] = useState("")
+  console.log(dp);
+  console.log(username);
+  
+  useEffect(()=>{
+    if(sessionStorage.getItem("token") && sessionStorage.getItem("user")){
+      const user = JSON.parse(sessionStorage.getItem("user"))
+      setUsername(user?.username)
+      setDp(user?.picture)
+    }
+  },[])
+  
 
   return (
     <>
@@ -18,11 +32,11 @@ function Profile() {
     <div style={{height:'200px'}} className="bg-black"></div>
     {/* profile image */}
     <div style={{width:'230px',height:'230px',borderRadius:'50%',marginLeft:'70px',marginTop:'-130px'}} className='bg-white p-3'>
-        <img style={{width:'200px',height:'200px',borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="profile" />
+        <img style={{width:'200px',height:'200px',borderRadius:'50%'}} src={dp?dp:"https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg"} alt="profile" />
     </div>
     {/* name with edit block */}
     <div className="md:flex justify-between items-center md:px-20 px-5 my-5">
-        <h1 className="text-2xl font-bold flex items-center ">Username <FaCircleCheck className='text-blue-400 ms-5'/> </h1>
+        <h1 className="text-2xl font-bold flex items-center ">{username} <FaCircleCheck className='text-blue-400 ms-5'/> </h1>
         <Edit/>
     </div>
     <p className="text-justify md:px-20 px-5 my-5">we’re happy to have you here! This is your personal reading space — a place where your favorite authors, wishlist items, reading history, and ongoing book journeys come together. Whether you're exploring new genres, tracking your progress, or managing your latest purchases, everything you need is just a click away. Your reading taste shapes your experience, and the more you explore, the better we tailor recommendations just for you.</p>

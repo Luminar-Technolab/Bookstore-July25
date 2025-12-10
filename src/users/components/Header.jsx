@@ -9,6 +9,8 @@ function Header() {
   const [token,setToken] = useState("")
   const [dropDown,setDropDown] = useState(false)
 
+  console.log(dp);
+  
   useEffect(()=>{
     if(sessionStorage.getItem("token")){
       const userToken = sessionStorage.getItem("token")
@@ -48,7 +50,7 @@ function Header() {
           :
           <div className="relative inline-block text-left ms-2">
               <button onClick={()=>setDropDown(!dropDown)} className="w-full bg-white px-3 py-2 shadow-xs hover:bg-gray-50">
-                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src="https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000" alt="profile picture" />
+                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"} alt="profile picture" />
               </button>
               {
                 dropDown &&
@@ -74,7 +76,7 @@ function Header() {
           :
           <div className="relative inline-block text-left ms-2">
               <button onClick={()=>setDropDown(!dropDown)} className="w-full bg-white px-3 py-2 shadow-xs hover:bg-gray-50">
-                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src="https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000" alt="profile picture" />
+                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"} alt="profile picture" />
               </button>
               {
                 dropDown &&
