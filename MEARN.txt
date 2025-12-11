@@ -771,6 +771,7 @@
             - process : Info about runtime (CPU, memory, env variables)
     9. Environmental Variable : used to store condefidential data of project, all env variable should be in .env file
     10. CORS (Cross Origin Resource Shairing): security mechanism that allows or restricts web applications running on one domain to interact with a server from another domain.
+    
 
 
             Express.js
@@ -838,7 +839,12 @@
             - import connection file in index.js
     8. Create model folder for communicate between controller and database
         - Inside folder create model js file for each collection in MongoDB
-        - 
+        - create schema for the model & export model
+    9. Create middleware folder
+        - create js file for token authorisation using JWT
+        - create a function with 3 arguments ( req,res,next) & export
+    10. Create a folder for storing uploading file from request in server
+    
 
             Mongoose
         ----------------
@@ -899,9 +905,37 @@
         - Server verifies token and grants/denies access.
     6. Install JWT package: npm install jsonwebtoken
     7. Create Token: use 'sign' method jsonwebtoken : jsonwebtoken.sign(payload,secret-key)
-    8. 
+    8. Verify token : use 'verify' method: jsonwebtoken.verify(token,secret-key)
 
         
+            MIDDLEWARES
+        -----------------------
+
+    1. Middlewares : are functions that run between the request and the response in a server application—commonly used in Express.js.
+    2. What is Middleware? A middleware is a function that has access to:
+        - req → Request object
+        - res → Response object
+        - next → 
+        It can:
+            - Modify req or res
+            - Run some logic (logging, validation, authentication)
+            - Stop the request OR pass it forward using next()
+    3. Types of Middleware
+        - Application-level middleware : Runs for every request, server-app.use(...)
+        - Router-level middleware : Attached to routes or route groups
+        - Built-in Middleware : express.json()
+        - Third-party Middleware : cors
+        - Error-handling Middleware: Has 4 parameters: (err, req, res, next)
+    4. Why Middleware is Important? Logging , Authentication,Error handling, Data parsing, Request validation, Access control, Performance monitoring
+
+            MULTER
+        --------------
+
+    1. Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. 
+    2. Install multer : npm install multer
+    3. Multer adds a 'body' object and a 'file' or 'files' object to the request object.
+    4. The 'body' object contains the values of the 'text fields' of the form, the 'file' or 'files' object contains the 'files uploaded' via the form.
+    5. Multer can be used to processing (where to store , checking its format etc) media file, 
 
     
 
