@@ -17,7 +17,6 @@ export const googleLoginAPI = async (userDetails)=>{
 }
 
 ///user/book/add - addbook api : called by SellBook Compoenent when add book btn click
-
 export const addBookAPI = async (reqBody,reqHeader)=>{
    return await commonAPI("POST",`${serverURL}/user/book/add`,reqBody,reqHeader)
 }
