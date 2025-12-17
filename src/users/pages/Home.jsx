@@ -4,10 +4,29 @@ import Footer from '../../components/Footer'
 import { FaSearch } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import { getHomePageBooksAPI } from '../../services/allAPI'
+import { useEffect } from 'react'
 
 function Home() {
   const navigate = useNavigate()
   const [searchKey,setSearchKey] = useState("")
+  const [homeBooks,setHomeBooks ]= useState([])
+
+  console.log(homeBooks);
+  
+  useEffect(()=>{
+    getHomeBooks()
+  },[])
+
+  const getHomeBooks = async ()=>{
+    const result = await getHomePageBooksAPI()
+    // console.log(result);
+    if(result.status==200){
+      setHomeBooks(result.data)
+    }else{
+      console.log(result);      
+    }
+  }
 
   const handleSearch = ()=>{
     if(!searchKey){
@@ -23,6 +42,8 @@ function Home() {
       toast.error("Something went wrong!!!!")
     }
   }
+
+   
 
   return (
     <>
@@ -47,41 +68,21 @@ function Home() {
         {/* books row & col */}
         <div className="md:grid grid-cols-4 w-full mt-10">
           {/* duplicate book card div */}
-            <div className="shadow rounded p-3 mx-4 mb-5 md:mb-0">
-              <img width={'300px'} height={'300px'}  src="https://cdn11.bigcommerce.com/s-65f8qukrjx/images/stencil/500x659/products/6929/17271/Weir_Project_Hail_Mary_cover__95757.1680721262.jpg?c=1" alt="book" />
-              <div className="flex justify-center items-center flex-col mt-4">
-                <h3 className="text-blue-600 font-bold text-lg">Author</h3>
-                <h4 className='text-lg'>title</h4>
-                <h4>$ price</h4>
-              </div>
-            </div>
-             {/* duplicate book card div */}
-            <div className="shadow rounded p-3 mx-4">
-              <img width={'300px'} height={'300px'}  src="https://cdn11.bigcommerce.com/s-65f8qukrjx/images/stencil/500x659/products/6929/17271/Weir_Project_Hail_Mary_cover__95757.1680721262.jpg?c=1" alt="book" />
-              <div className="flex justify-center items-center flex-col mt-4">
-                <h3 className="text-blue-600 font-bold text-lg">Author</h3>
-                <h4 className='text-lg'>title</h4>
-                <h4>$ price</h4>
-              </div>
-            </div>
-             {/* duplicate book card div */}
-            <div className="shadow rounded p-3 mx-4">
-              <img width={'300px'} height={'300px'}  src="https://cdn11.bigcommerce.com/s-65f8qukrjx/images/stencil/500x659/products/6929/17271/Weir_Project_Hail_Mary_cover__95757.1680721262.jpg?c=1" alt="book" />
-              <div className="flex justify-center items-center flex-col mt-4">
-                <h3 className="text-blue-600 font-bold text-lg">Author</h3>
-                <h4 className='text-lg'>title</h4>
-                <h4>$ price</h4>
-              </div>
-            </div>
-             {/* duplicate book card div */}
-            <div className="shadow rounded p-3 mx-4">
-              <img width={'300px'} height={'300px'}  src="https://cdn11.bigcommerce.com/s-65f8qukrjx/images/stencil/500x659/products/6929/17271/Weir_Project_Hail_Mary_cover__95757.1680721262.jpg?c=1" alt="book" />
-              <div className="flex justify-center items-center flex-col mt-4">
-                <h3 className="text-blue-600 font-bold text-lg">Author</h3>
-                <h4 className='text-lg'>title</h4>
-                <h4>$ price</h4>
-              </div>
-            </div>
+            {
+              homeBooks?.length>0?
+                homeBooks?.map(book=>(
+                  <div key={book?._id} className="shadow rounded p-3 mx-4 mb-5 md:mb-0">
+                    <img width={'250px'} height={'250px'}  src={book?.imageURL} alt="book" />
+                    <div className="flex justify-center items-center flex-col mt-4">
+                      <h3 className="text-blue-600 font-bold text-lg">{book?.author}</h3>
+                      <h4 className='text-lg'>{book?.title}</h4>
+                      <h4 className='text-green-700'>$ {book?.discountPrice}</h4>
+                    </div>
+                  </div>
+                ))
+              :
+              <p className='font-bold'>Loading ...</p>
+            }
         </div>
         {/* all books link */}
         <div className="text-center my-20">
