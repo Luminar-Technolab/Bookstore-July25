@@ -554,6 +554,19 @@
             - Install:  npm install axios
     17. Data shairing React
         - State lifting : data shairing using props, Here state will lift to its common parent so that its child can access data via pros
+        - redux : used to ahare data between components using global storage
+        - Context API : used to share data between components without props drilling
+
+            CONTEXT API
+        ------------------
+        1. Context API is React’s built-in way to share data globally across components without passing props manually at every level
+        2. Basic Flow (3 Steps)
+            - Create Context : use createContext() method
+            - Provide Context : using 'Provide' component of createContext(), it uses 'value' to provide data
+            - Consume/access Context : use 'useContext' hook
+        3. Context vs Redux (Quick Take)
+            - Context API → small to medium apps, simple global state
+            - Redux / Zustand → large apps, complex state, heavy updates
 
 
             JSON SERVER

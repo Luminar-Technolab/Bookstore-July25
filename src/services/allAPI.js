@@ -27,11 +27,16 @@ export const getHomePageBooksAPI = async ()=>{
 }
 
 ///books/all : bookpage api : called by books compoenent when page loads - authorised user
-export const getAllBooksPageAPI = async (reqHeader)=>{
-   return await commonAPI("GET",`${serverURL}/books/all`,{},reqHeader)
+export const getAllBooksPageAPI = async (reqHeader,searchKey)=>{
+   return await commonAPI("GET",`${serverURL}/books/all?search=${searchKey}`,{},reqHeader)
 }
 
 //user-books/all : CALLED By bookstatus when page load- authorised user
 export const getAllUserBooksAPI = async (reqHeader)=>{
    return await commonAPI("GET",`${serverURL}/user-books/all`,{},reqHeader)
+}
+
+//user-books/bought : get reqst called by purchase component when it loads
+export const getAllUserBoughtBooksAPI = async (reqHeader)=>{
+   return await commonAPI("GET",`${serverURL}/user-books/bought`,{},reqHeader)
 }
