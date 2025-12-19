@@ -813,6 +813,7 @@
             - make sure server listen in that port
             - resolve http get request to http://localhost:3000/ using server
                 - server.httpRequest(url,request handle function)
+            
     4. Express.js MVC architecture step by step.
         - What is MVC?
             | Layer          | Role                                              |
@@ -857,8 +858,7 @@
         - create js file for token authorisation using JWT
         - create a function with 3 arguments ( req,res,next) & export
     10. Create a folder for storing uploading file from request in server
-    
-
+    11. To enable static files from server use app.use(path,express.static(file-location))
             Mongoose
         ----------------
 
