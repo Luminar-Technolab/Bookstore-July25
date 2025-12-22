@@ -859,6 +859,7 @@
         - create a function with 3 arguments ( req,res,next) & export
     10. Create a folder for storing uploading file from request in server
     11. To enable static files from server use app.use(path,express.static(file-location))
+    
             Mongoose
         ----------------
 

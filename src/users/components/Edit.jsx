@@ -24,7 +24,7 @@ function Edit() {
             {/* image */}
             <label htmlFor="uploadImg" >
                 <input type="file" id='uploadImg' hidden />
-                <img style={{width:'150px',height:'150px',borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="profile" />
+                <img style={{width:'100px',height:'100px',borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="profile" />
               </label>
                <button style={{marginTop:'-20px'}} className='bg-yellow-300 p-2 text-white rounded'><FaPen/></button>
             {/* name */}
@@ -40,7 +40,7 @@ function Edit() {
             </div>
             {/* bio */}
             <div className="mb-3 w-full px-5">
-              <textarea type="text" placeholder='Bio' rows={3} className='border border-gray-200 p-2 rounded w-full' />
+              <textarea type="text" placeholder='Bio' rows={2} className='border border-gray-200 p-2 rounded w-full' />
             </div>
             {/* button */}
             <div className="mb-3 flex justify-end px-5 w-full mt-5">

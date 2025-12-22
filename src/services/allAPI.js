@@ -45,3 +45,7 @@ export const getAllUserBoughtBooksAPI = async (reqHeader)=>{
 export const viewBookAPI = async (reqHeader,id)=>{
    return await commonAPI("GET",`${serverURL}/books/${id}/view`,{},reqHeader)
 }
+//user/:id/edit : put request by Edit when update btn click
+export const editUserAPI = async (id,reqBody,reqHeader)=>{
+   return await commonAPI("PUT",`${serverURL}/user/${id}/edit`,reqBody,reqHeader)
+}
