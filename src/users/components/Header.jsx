@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaAddressCard, FaBars, FaFacebook, FaInstagram, FaPowerOff, FaUser,  } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { Link, useNavigate } from 'react-router-dom'
+import serverURL from "../../services/serverURL";
 
 function Header() {
   const [listStatus,setListStatus] = useState(false)
@@ -60,7 +61,7 @@ function Header() {
           :
           <div className="relative inline-block text-left ms-2">
               <button onClick={()=>setDropDown(!dropDown)} className="w-full bg-white px-3 py-2 shadow-xs hover:bg-gray-50">
-                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"} alt="profile picture" />
+                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp.startsWith("https://lh3.googleusercontent.com/")?dp:`${serverURL}/uploads/${dp}`:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"} alt="profile picture" />
               </button>
               {
                 dropDown &&
@@ -86,7 +87,7 @@ function Header() {
           :
           <div className="relative inline-block text-left ms-2">
               <button onClick={()=>setDropDown(!dropDown)} className="w-full bg-white px-3 py-2 shadow-xs hover:bg-gray-50">
-                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"} alt="profile picture" />
+                <img width={'40px'} height={'40px'} style={{borderRadius:'50%'}}  src={dp?dp.startsWith("https://lh3.googleusercontent.com/")?dp:`${serverURL}/uploads/${dp}`:"https://img.freepik.com/premium-vector/cute-woman-avatar-profile-vector-illustration_1058532-14592.jpg?w=2000"}alt="profile picture" />
               </button>
               {
                 dropDown &&
