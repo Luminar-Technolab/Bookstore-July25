@@ -1,11 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminHeader from "../components/AdminHeader";
 import AdminSideBar from "../components/AdminSideBar";
 import Footer from '../../components/Footer';
+import { getAllAdminBooksAPI } from '../../services/allAPI';
 
 function AdminCollections() {
 
   const[tab,setTab] = useState(1)
+  const [allBooks,setAllBooks] = useState([])
+
+  console.log(allBooks);
+  
+  useEffect(()=>{
+    const token = sessionStorage.getItem("token")
+    if(token){
+      if(tab == 1){
+        getAllBooks(token)
+      }
+    }
+  },[tab])
+
+  const getAllBooks = async (token)=>{
+     const reqHeader = {
+      "Authorization":`Bearer ${token}`
+    }
+    const result = await getAllAdminBooksAPI(reqHeader)
+    if(result.status==200){
+      setAllBooks(result.data)
+    }else {
+      console.log(result);      
+    }
+  }
 
   return (
      <>
@@ -26,17 +51,24 @@ function AdminCollections() {
           tab==1 &&
           <div className='md:grid grid-cols-4 w-full my-5'>
              {/* duplicate book card */}
-             <div className="shadow rounded p-3 mx-4 mb-5 md:mb-0">
-              <img width={'300px'} height={'300px'}  src="https://cdn11.bigcommerce.com/s-65f8qukrjx/images/stencil/500x659/products/6929/17271/Weir_Project_Hail_Mary_cover__95757.1680721262.jpg?c=1" alt="book" />
-              <div className="flex justify-center items-center flex-col mt-4">
-                <h3 className="text-blue-600 font-bold text-lg">Author</h3>
-                <h4 className='text-lg'>title</h4>
-                <h4>$ price</h4>
-                <div className='grid mt-3 w-full'>
-                  <button className='bg-green-600 p-2 text-white'>APPROVE</button>
-                </div>
-              </div>
-            </div>
+             {
+              allBooks?.length>0 ?
+                allBooks?.map(book=>(
+                  <div key={book?._id} className="shadow rounded p-3 mx-4 mb-5 md:mb-0">
+                    <img width={'300px'} height={'300px'}  src={book?.imageURL} alt="book" />
+                    <div className="flex justify-center items-center flex-col mt-4">
+                      <h3 className="text-blue-600 font-bold text-lg">{book?.author}</h3>
+                      <h4 className='text-lg'>{book?.title}</h4>
+                      <h4>$ {book?.discountPrice}</h4>
+                      <div className='grid mt-3 w-full'>
+                        <button className='bg-green-600 p-2 text-white'>APPROVE</button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              :
+              <p>Loading...</p>
+             }
             
           </div>
         }
