@@ -54,3 +54,16 @@ export const editUserAPI = async (id,reqBody,reqHeader)=>{
 export const getAllAdminBooksAPI = async (reqHeader)=>{
    return await commonAPI("GET",`${serverURL}/admin-books/all`,{},reqHeader)
 }
+
+//users/all : GET reqst by adminCollection component when tab 2 is open
+export const getAllUsersAPI = async (reqHeader)=>{
+   return await commonAPI("GET",`${serverURL}/users/all`,{},reqHeader)
+}
+//books/693fa9829bffdec0603bc7f0/update : PUT rqst by adminCollection when approve btn clicked
+export const updateBookStatusAPI = async (id,reqHeader)=>{
+   return await commonAPI("PUT",`${serverURL}/books/${id}/update`,{},reqHeader)
+}
+///books/:id : DELETE rqst by Bookstatus compoenet when delete btn clicked
+export const removeBookAPI = async (id,reqHeader)=>{
+   return await commonAPI("DELETE",`${serverURL}/books/${id}`,{},reqHeader)
+}

@@ -2,20 +2,27 @@ import React, { useEffect, useState } from 'react'
 import AdminHeader from "../components/AdminHeader";
 import AdminSideBar from "../components/AdminSideBar";
 import Footer from '../../components/Footer';
-import { getAllAdminBooksAPI } from '../../services/allAPI';
+import { getAllAdminBooksAPI, getAllUsersAPI, updateBookStatusAPI } from '../../services/allAPI';
+import serverURL from '../../services/serverURL';
+import { ToastContainer, toast } from 'react-toastify';
 
 function AdminCollections() {
 
   const[tab,setTab] = useState(1)
   const [allBooks,setAllBooks] = useState([])
+  const [allUsers,setAllUsers] = useState([])
 
   console.log(allBooks);
+  console.log(allUsers);
+  
   
   useEffect(()=>{
     const token = sessionStorage.getItem("token")
     if(token){
       if(tab == 1){
         getAllBooks(token)
+      }else if(tab==2){
+        getAllUsers(token)
       }
     }
   },[tab])
@@ -29,6 +36,34 @@ function AdminCollections() {
       setAllBooks(result.data)
     }else {
       console.log(result);      
+    }
+  }
+
+  const getAllUsers = async (token)=>{
+     const reqHeader = {
+      "Authorization":`Bearer ${token}`
+    }
+    const result = await getAllUsersAPI(reqHeader)
+    if(result.status==200){
+      setAllUsers(result.data)
+    }else {
+      console.log(result);      
+    }
+  }
+
+  const updateBookStatus = async (id)=>{
+    const token = sessionStorage.getItem("token")
+    if(token){
+      const reqHeader = {
+      "Authorization":`Bearer ${token}`
+      }
+      const result = await updateBookStatusAPI(id,reqHeader)
+      if(result.status==200){
+        toast.success("Book status updated!!!")
+        getAllBooks(token)
+      }else{
+        console.log(result);        
+      }
     }
   }
 
@@ -60,8 +95,13 @@ function AdminCollections() {
                       <h3 className="text-blue-600 font-bold text-lg">{book?.author}</h3>
                       <h4 className='text-lg'>{book?.title}</h4>
                       <h4>$ {book?.discountPrice}</h4>
-                      <div className='grid mt-3 w-full'>
-                        <button className='bg-green-600 p-2 text-white'>APPROVE</button>
+                      <div className='grid mt-3 w-full '>
+                        {
+                          book?.status !="approved"?
+                          <button onClick={()=>updateBookStatus(book?._id)} className='bg-green-600 p-2 text-white'>APPROVE</button>
+                          :
+                          <img width={'40px'} src="https://static.vecteezy.com/system/resources/previews/010/152/436/original/tick-check-mark-icon-sign-symbol-design-free-png.png" alt="check icon" />
+                        }
                       </div>
                     </div>
                   </div>
@@ -76,24 +116,32 @@ function AdminCollections() {
           tab==2 && 
           <div className='md:grid grid-cols-3 w-full my-5'>
             {/* duplicate Users card */}
-            <div className="rounded bg-gray-200 p-3 m-2 text-wrap">
-              <p className="text-red-600 font-bold">ID : dr3ri3o9908</p>
-              <div className="flex items-center  text-wrap mt-2">
-                  {/* user image */}
-                  <img width={'80px'} height={'80px'} style={{borderRadius:'50%'}} src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="user" />
-                  {/* content */}
-                  <div className='ms-5'>
-                    <h4 className="font-bold text-2xl text-blue-800">name</h4>
-                    <p>demo@gmail.com</p>
+            {
+              allUsers?.length>0?
+                allUsers?.map(user=>(
+                  <div key={user?._id} className="rounded bg-gray-200 p-3 m-2 text-wrap">
+                    <p className="text-red-600 font-bold text-sm">ID : {user?._id}</p>
+                    <div className="flex items-center  text-wrap mt-2">
+                        {/* user image */}
+                        <img width={'50px'} height={'50px'} style={{borderRadius:'50%'}} src={user?.picture?user?.picture.startsWith("https://lh3.googleusercontent.com/")?user?.picture:`${serverURL}/uploads/${user.picture}`:"https://cdn2.iconfinder.com/data/icons/business-hr-and-recruitment/100/account_blank_face_dummy_human_mannequin_profile_user_-512.png"} alt="user" />
+                        {/* content */}
+                        <div className='ms-5'>
+                          <h6 className="font-bold text-md text-blue-800">{user?.username}</h6>
+                          <p className='text-xs'>{user?.email}</p>
+                        </div>
+                    </div>
                   </div>
-              </div>
-            </div>
+                ))
+              :
+              <p>Loading...</p>
+            }
             
           </div>
         }
       </div>
       </div>
     <Footer/>
+    <ToastContainer position="top-center" autoClose={2000} theme="colored" />
     </>
   )
 }

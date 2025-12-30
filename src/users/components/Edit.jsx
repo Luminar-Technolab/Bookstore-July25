@@ -105,7 +105,7 @@ function Edit() {
                   <img style={{width:'100px',height:'100px',borderRadius:'50%'}} src={preview?preview:"https://cdn1.iconfinder.com/data/icons/interaction-18/70/profile__account__user__upload__male-1024.png"} alt="profile" />
                 }
                 <button style={{marginTop:'-20px',marginLeft:'30px'}} className='bg-yellow-300 p-2 text-white rounded'><FaPen/></button>
-              </label>
+            </label>
                
             {/* name */}
             <div className="mt-10 mb-3 w-full px-5">
