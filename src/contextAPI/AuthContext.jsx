@@ -18,9 +18,9 @@ function AuthContext({children}) {
     },[authorised,role])
 
   return (
-    <>
+    <routeGuardContext.Provider value={{role,authorised,setAuthorised}}>
         {children}
-    </>
+    </routeGuardContext.Provider>
   )
 }
 
